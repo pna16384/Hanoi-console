@@ -9,6 +9,15 @@
 
 import Foundation
 
+// Example xterm256 escape sequences to colour-code cylinder peg positions (see https://en.wikipedia.org/wiki/ANSI_escape_code for more complete list as well as console input / cursor control sequences)
+enum xterm256Colour : String {
+    
+    case Default = "\u{001B}[0m"
+    case Red = "\u{001B}[38;5;9m"
+    case Green = "\u{001B}[38;5;10m"
+    case Yellow = "\u{001B}[38;5;11m"
+}
+
 class Hanoi {
     
     // The tower T is represented by an implicit group of cylinders C = < ci : (0 <= i < n); size(ci) > size(ci+1) (for all i>=0)> (so cylinder sizes decrease as we iterate through the array).  Each entry in T T[i] corresponds to cylinder ci and stores it's peg location only.  Pegs are bit encoded as 0b100, 0b010 and 0b001
@@ -23,7 +32,26 @@ class Hanoi {
     
     func printCurrentState() {
         
-        print(T)
+        print("[", terminator:"")
+        
+        for i in 0..<n {
+            
+            switch T[i] {
+            
+            case 0b001:
+                print("\(xterm256Colour.Red.rawValue)", terminator:"")
+            case 0b010:
+                print("\(xterm256Colour.Green.rawValue)", terminator:"")
+            case 0b100:
+                print("\(xterm256Colour.Yellow.rawValue)", terminator:"")
+            default:
+                print("\(xterm256Colour.Default.rawValue)", terminator:"")
+            }
+            
+            print("\(T[i])\(xterm256Colour.Default.rawValue)", terminator: (i < n - 1) ? ", " : "")
+        }
+        
+        print("]")
     }
     
     // Solve the Tower of Hanoi recursively, where i is the current cylinder index to move, target is the peg to move the cylinder to and move is the current count of moves made so far.  Note: move = 0 is only defaulted in the first call into solve (not from any recursive call)
