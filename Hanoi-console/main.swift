@@ -5,28 +5,20 @@
 //  Created by Paul Angel on 28/07/2022.
 //
 
-// Swift version of C++ and Kotlin versions developed in 2018
+// Swift version of C++ and Kotlin versions developed in 2018.  Modified version of initial commit - this version uses bitwise flags for peg labelling.  This allows bitwise ops to select next peg rather than Set selection of character labelled pegs
 
 import Foundation
 
-typealias Char = Character
-
 class Hanoi {
     
-    // The tower T is represented by an implicit group of cylinders C = < ci : (0 <= i < n); size(ci) > size(ci+1) (for all i>=0)> (so cylinder sizes decrease as we iterate through the array)
-    // Each entry in T T[i] corresponds to cylinder ci and stores it's peg location only.  All cylinders are initialised to start on peg A, where pegs are labelled <A, B, C>.
+    // The tower T is represented by an implicit group of cylinders C = < ci : (0 <= i < n); size(ci) > size(ci+1) (for all i>=0)> (so cylinder sizes decrease as we iterate through the array).  Each entry in T T[i] corresponds to cylinder ci and stores it's peg location only.  Pegs are bit encoded as 0b100, 0b010 and 0b001
     
-    var T : [Char]
-    
+    var T : [UInt8]
     var n : Int { T.count }
-    
-    static let pegs : Set<Char> = ["A", "B", "C"]
     
     init(withNumCylinders numCylinders : Int) {
         
-        T = [Char](repeating: "A", count: numCylinders)
-        
-        // Note: numCylinders not stored explicitly as T.count represnets the number of cylinders on the tower - this is implemented as computed property 'n'
+        T = [UInt8](repeating: 0b100, count: numCylinders) // Note: numCylinders not stored explicitly as T.count represnets the number of cylinders on the tower - this is implemented as computed property 'n'
     }
     
     func printCurrentState() {
@@ -35,20 +27,19 @@ class Hanoi {
     }
     
     // Solve the Tower of Hanoi recursively, where i is the current cylinder index to move, target is the peg to move the cylinder to and move is the current count of moves made so far.  Note: move = 0 is only defaulted in the first call into solve (not from any recursive call)
-    func solve(_ i:Int, _ target:Char, _ move:Int = 0) -> Int {
+    func solve(_ i:Int, _ target:UInt8, _ move:Int = 0) -> Int {
         
         var currentMove = move
         
         // Drill down through each cylinder (each cylinder is considered the base of it's own sub-tower).  Alternate the target peg each recursive step through the tower so we move sub-towers correctly onto other pegs without violating the rules of the Tower of Hanoi
         if (i < n - 1) {
-            
-            // Note: This version uses Swift set difference (subtracting) given {A, B, C} \ {T[i], target} - return the peg that is not in the set {T[i], target}.  Note: Force unwrap since there is always going to be one disjoint element from the peg set {A, B, C}
-            currentMove = solve(i + 1, Hanoi.pegs.subtracting(Set([T[i], target])).first!, currentMove)
+           
+            currentMove = solve(i + 1,  ~(T[i] | target) & 0b111, currentMove)
         }
         
         // Move current cylinder 'i' to peg 'target' and increment move counter
         T[i] = target
-        currentMove+=1
+        currentMove += 1
         
         // Print the current state after the move is complete
         print("Currnet move: \(currentMove)")
@@ -66,15 +57,16 @@ class Hanoi {
 }
 
 
+
 // Create hanoi tower
-var hanoi = Hanoi(withNumCylinders: 4)
+var hanoi = Hanoi(withNumCylinders: 3)
 
 // Print initial state
-print("Initial state = ")
+print("Initial state =")
 hanoi.printCurrentState()
 
-// Initiate solve starting from bottom cylinder (i=0) and move this to target peg "C" from initial peg "A" (see Hanoi class notes)
-let totalMoves = hanoi.solve(0, "C")
+// Initiate solve starting from bottom cylinder (i=0) and move this to target peg 0b001 from initial peg 0b100
+let totalMoves = hanoi.solve(0, 0b001)
 
 // Print final state
 print("Final state = ")
