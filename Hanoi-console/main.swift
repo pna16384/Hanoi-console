@@ -81,7 +81,7 @@ class Hanoi {
             
             print(pegRow)
         }
-        print(String(repeating:"-", count:3 * w + 4))
+        print(String(repeating:"\u{25AC}", count:3 * w + 4))
         
         
         // Dictionary to track number of cylinders rendered on each peg
@@ -110,7 +110,7 @@ class Hanoi {
             printString += cylinder.colour.rawValue
             
             // setup cylinder
-            printString += String(repeating:"X", count:cylinder.size)
+            printString += String(repeating:"\u{25A0}", count:cylinder.size)
             
             // reset colour and cursor position
             printString += xterm256Colour.Default.rawValue
