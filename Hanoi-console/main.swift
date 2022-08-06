@@ -26,7 +26,8 @@ class Hanoi {
         }
     }
     
-    func printCurrentState() {
+    /*
+    func printCurrentState() { // depricated
         
         print("[", terminator:"")
         
@@ -49,6 +50,7 @@ class Hanoi {
         
         print("]")
     }
+    */
     
     func printTower() {
         
@@ -121,8 +123,6 @@ class Hanoi {
             // Update pegs count
             pegs[cylinder.peg]?.count += 1
         }
-        
-        print("\n\n")
     }
     
     
@@ -160,7 +160,7 @@ class Hanoi {
 
 
 // Create hanoi tower (number implicit in size of colour array) - cylinder size implicit in position in T array
-var hanoi = Hanoi(withColours:[.Red, .Green, .Yellow])
+var hanoi = Hanoi(withColours:[.Red, .Green, .Yellow, .Magenta, .Cyan])
 
 // Print initial state
 print("Initial state =")

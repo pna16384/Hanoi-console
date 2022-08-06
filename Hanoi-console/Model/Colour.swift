@@ -14,5 +14,7 @@ enum xterm256Colour : String {
     case Red = "\u{001B}[38;5;9m"
     case Green = "\u{001B}[38;5;10m"
     case Yellow = "\u{001B}[38;5;11m"
+    case Magenta = "\u{001B}[38;5;13m"
+    case Cyan = "\u{001B}[38;5;14m"
 }
 
