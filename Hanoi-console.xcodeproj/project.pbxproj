@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0143D7FB2892DD1B00D64BDB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143D7FA2892DD1B00D64BDB /* main.swift */; };
+		01C8B2DA289BAECD00282C89 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C8B2D9289BAECD00282C89 /* Colour.swift */; };
+		01C8B2DD289BAF0200282C89 /* Cylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C8B2DC289BAF0200282C89 /* Cylinder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		0143D7F72892DD1B00D64BDB /* Hanoi-console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Hanoi-console"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0143D7FA2892DD1B00D64BDB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		01C8B2D9289BAECD00282C89 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
+		01C8B2DC289BAF0200282C89 /* Cylinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cylinder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +61,19 @@
 		0143D7F92892DD1B00D64BDB /* Hanoi-console */ = {
 			isa = PBXGroup;
 			children = (
+				01C8B2DB289BAEEF00282C89 /* Model */,
 				0143D7FA2892DD1B00D64BDB /* main.swift */,
 			);
 			path = "Hanoi-console";
+			sourceTree = "<group>";
+		};
+		01C8B2DB289BAEEF00282C89 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				01C8B2D9289BAECD00282C89 /* Colour.swift */,
+				01C8B2DC289BAF0200282C89 /* Cylinder.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,6 +135,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0143D7FB2892DD1B00D64BDB /* main.swift in Sources */,
+				01C8B2DD289BAF0200282C89 /* Cylinder.swift in Sources */,
+				01C8B2DA289BAECD00282C89 /* Colour.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
