@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0143D7FB2892DD1B00D64BDB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143D7FA2892DD1B00D64BDB /* main.swift */; };
+		01C508EE28A04006002C3718 /* Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C508ED28A04006002C3718 /* Cursor.swift */; };
 		01C8B2DA289BAECD00282C89 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C8B2D9289BAECD00282C89 /* Colour.swift */; };
 		01C8B2DD289BAF0200282C89 /* Cylinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C8B2DC289BAF0200282C89 /* Cylinder.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		0143D7F72892DD1B00D64BDB /* Hanoi-console */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Hanoi-console"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0143D7FA2892DD1B00D64BDB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		01C508ED28A04006002C3718 /* Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cursor.swift; sourceTree = "<group>"; };
 		01C8B2D9289BAECD00282C89 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 		01C8B2DC289BAF0200282C89 /* Cylinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cylinder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 			children = (
 				01C8B2D9289BAECD00282C89 /* Colour.swift */,
 				01C8B2DC289BAF0200282C89 /* Cylinder.swift */,
+				01C508ED28A04006002C3718 /* Cursor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0143D7FB2892DD1B00D64BDB /* main.swift in Sources */,
+				01C508EE28A04006002C3718 /* Cursor.swift in Sources */,
 				01C8B2DD289BAF0200282C89 /* Cylinder.swift in Sources */,
 				01C8B2DA289BAECD00282C89 /* Colour.swift in Sources */,
 			);

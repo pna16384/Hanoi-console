@@ -63,11 +63,11 @@ class Hanoi {
          largest cylinder width = 1 + (T.count << 1) = w
          g = gap between largest cylinder if 2 copies on neighbouring pegs
          
-      ^                 |             |             |
+      ^                 |             |             |               <--- pegRow string
       |                 |             |             |
      n+1                |             |             |
       v   ((w-1)/2)+1   |    w        |      w      |  ((w-1)/2)+1
-         ----------------------------------------------------------
+         ---------------------------------------------------------- <--- baseline
          
          */
         
@@ -97,25 +97,20 @@ class Hanoi {
             0b010 : Peg(offset:((w - 1) >> 1) + w + 2, count:0),
             0b001 : Peg(offset:((w - 1) >> 1) + (w << 1) + 3, count:0)]
         
+        // Position and draw each cylinder
+        
         for cylinder in T {
             
             let x : Int = pegs[cylinder.peg]!.offset - ((cylinder.size-1)>>1)
-            var printString : String = ""
             
-            // position cursor
-            printString += String(repeating:"\u{001B}[A", count:pegs[cylinder.peg]!.count + 2) // y offset
-            printString += String(repeating:"\u{001B}[C", count:x) // x offset
+            // set cursor position and colour
+            var printString = Cursor.up(pegs[cylinder.peg]!.count + 2) + Cursor.right(x) + cylinder.colour.rawValue
             
-            // setup colour
-            printString += cylinder.colour.rawValue
-            
-            // setup cylinder
+            // print cylinder
             printString += String(repeating:"\u{25A0}", count:cylinder.size)
             
             // reset colour and cursor position
-            printString += xterm256Colour.Default.rawValue
-            printString += String(repeating:"\u{001B}[B", count:pegs[cylinder.peg]!.count + 2) // reset y to base
-            printString += String(repeating:"\u{001B}[D", count:cylinder.size + x) // reset to start of line
+            printString += xterm256Colour.Default.rawValue + Cursor.down(pegs[cylinder.peg]!.count + 2) + Cursor.left(cylinder.size + x)
             
             // draw
             print(printString, terminator: "")
