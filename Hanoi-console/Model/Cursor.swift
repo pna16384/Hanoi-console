@@ -29,4 +29,14 @@ struct Cursor {
         
         String(repeating:"\u{001B}[D", count:n)
     }
+    
+    static func cr() -> String {
+        
+        return "\r"
+    }
+    
+    static func newLine() -> String {
+        
+        return "\n"
+    }
 }

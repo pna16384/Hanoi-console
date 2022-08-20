@@ -110,7 +110,7 @@ class Hanoi {
             printString += String(repeating:"\u{25A0}", count:cylinder.size)
             
             // reset colour and cursor position
-            printString += xterm256Colour.Default.rawValue + Cursor.down(pegs[cylinder.peg]!.count + 2) + Cursor.left(cylinder.size + x)
+            printString += xterm256Colour.Default.rawValue + Cursor.down(pegs[cylinder.peg]!.count + 2) + Cursor.cr()
             
             // draw
             print(printString, terminator: "")
