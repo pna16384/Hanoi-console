@@ -65,6 +65,18 @@ class Hanoi {
     }
 }
 
+// More compact solve that does not rely on peg set model, using only index of cylinder (in cyinder array P[]) to calculate move (uising n cylinders, where i=0 is the bottom (largest) cylinder
+func solve(_ i:Int= 0)
+{
+    if (i<n)
+    {
+        solve(i + 1);
+
+        P[i] = ((i & 0b1) == 0) ? (P[i] + 1) % 3 : Math.Min((P[i] - 1) & 0b11, 2);
+
+        solve(i + 1);
+    }
+}
 
 // Create hanoi tower
 var hanoi = Hanoi(withNumCylinders: 4)
