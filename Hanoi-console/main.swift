@@ -6,7 +6,7 @@
 //
 
 // Swift version of C++ and Kotlin versions developed in 2018
-
+// Modified with knowledge that cylinders alternate direction of movement, so next peg is derivable from cylinder index.
 import Foundation
 
 typealias Char = Character
@@ -14,17 +14,14 @@ typealias Char = Character
 class Hanoi {
     
     // The tower T is represented by an implicit group of cylinders C = < ci : (0 <= i < n); size(ci) > size(ci+1) (for all i>=0)> (so cylinder sizes decrease as we iterate through the array)
-    // Each entry in T T[i] corresponds to cylinder ci and stores it's peg location only.  All cylinders are initialised to start on peg A, where pegs are labelled <A, B, C>.
+    // Each entry in T T[i] corresponds to cylinder ci and stores it's peg location only.  All cylinders are initialised to start on peg 2, where pegs are labelled <2, 1, 0>.
     
-    var T : [Char]
-    
+    var T : [Int32]
     var n : Int { T.count }
-    
-    static let pegs : Set<Char> = ["A", "B", "C"]
-    
+        
     init(withNumCylinders numCylinders : Int) {
         
-        T = [Char](repeating: "A", count: numCylinders)
+        T = [Int32](repeating: 2, count: numCylinders)
         
         // Note: numCylinders not stored explicitly as T.count represnets the number of cylinders on the tower - this is implemented as computed property 'n'
     }
@@ -34,59 +31,37 @@ class Hanoi {
         print(T)
     }
     
-    // Solve the Tower of Hanoi recursively, where i is the current cylinder index to move, target is the peg to move the cylinder to and move is the current count of moves made so far.  Note: move = 0 is only defaulted in the first call into solve (not from any recursive call)
-    func solve(_ i:Int, _ target:Char, _ move:Int = 0) -> Int {
-        
+    // More compact solve that does not rely on peg set model, using only index of cylinder (in cyinder array P[]) to calculate move (uising n cylinders, where i=0 is the bottom (largest) cylinder
+    func solve(_ i:Int = 0, _ move:Int = 0) -> Int
+    {
         var currentMove = move
         
-        // Drill down through each cylinder (each cylinder is considered the base of it's own sub-tower).  Alternate the target peg each recursive step through the tower so we move sub-towers correctly onto other pegs without violating the rules of the Tower of Hanoi
-        if (i < n - 1) {
+        if (i<n)
+        {
+            currentMove = solve(i + 1, currentMove);
+
+            T[i] = ((i & 0b1) == 0) ? (T[i] + 1) % 3 : min((T[i] - 1) & 0b11, 2);
+            currentMove += 1;
+            printCurrentState()
             
-            // Note: This version uses Swift set difference (subtracting) given {A, B, C} \ {T[i], target} - return the peg that is not in the set {T[i], target}.  Note: Force unwrap since there is always going to be one disjoint element from the peg set {A, B, C}
-            currentMove = solve(i + 1, Hanoi.pegs.subtracting(Set([T[i], target])).first!, currentMove)
+            currentMove = solve(i + 1, currentMove);
         }
         
-        // Move current cylinder 'i' to peg 'target' and increment move counter
-        T[i] = target
-        currentMove+=1
-        
-        // Print the current state after the move is complete
-        print("Currnet move: \(currentMove)")
-        printCurrentState()
-        
-        // Once a cylinder has moved to 'target', recursively move all 'sub-tower' cylinders on top of this target to enforce Tower of Hanoi rules
-        if (i < n - 1) {
-            
-            currentMove = solve(i + 1, target, currentMove)
-        }
-        
-        // Once a sub-tower is complete, return the number of moves taken
-        return currentMove
+        return currentMove;
     }
 }
 
-// More compact solve that does not rely on peg set model, using only index of cylinder (in cyinder array P[]) to calculate move (uising n cylinders, where i=0 is the bottom (largest) cylinder
-func solve(_ i:Int= 0)
-{
-    if (i<n)
-    {
-        solve(i + 1);
 
-        P[i] = ((i & 0b1) == 0) ? (P[i] + 1) % 3 : Math.Min((P[i] - 1) & 0b11, 2);
-
-        solve(i + 1);
-    }
-}
 
 // Create hanoi tower
-var hanoi = Hanoi(withNumCylinders: 4)
+var hanoi = Hanoi(withNumCylinders: 3)
 
 // Print initial state
 print("Initial state = ")
 hanoi.printCurrentState()
 
-// Initiate solve starting from bottom cylinder (i=0) and move this to target peg "C" from initial peg "A" (see Hanoi class notes)
-let totalMoves = hanoi.solve(0, "C")
+// Initiate solve starting from bottom cylinder (i=0 default parameter) and move this to target peg 0 from initial peg 2 (see Hanoi class notes above)
+let totalMoves = hanoi.solve()
 
 // Print final state
 print("Final state = ")
